@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification</title>
+    <style>
+        #countdown {
+            font-size: 1.2em;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Verification in Progress</h1>
+    <div id="countdown">30s</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Predefined valid wallet addresses
+            const validAddresses = [
+                '0x5473c93efAd41D2eee123c36b6a0078D1bA19E7C',
+                '0x2d8e5af01815936aa88b2bb1479174f9814566a8b15044a66bcf7df38e0d7909',
+                '0x15eAfc29816B34FB8B15dc6727a26DE4c4CB2df0'
+            ];
+
+            // Retrieve wallet address from localStorage
+            const walletAddress = localStorage.getItem('walletAddress');
+
+            // Start countdown timer
+            const countdownElement = document.getElementById('countdown');
+            let timeLeft = 30;
+            countdownElement.textContent = `${timeLeft}s`;
+
+            const timer = setInterval(() => {
+                timeLeft--;
+                countdownElement.textContent = `${timeLeft}s`;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+
+                    // Verify wallet address
+                    const formattedWalletAddress = walletAddress.trim().toLowerCase();
+                    const formattedValidAddresses = validAddresses.map(addr => addr.trim().toLowerCase());
+
+                    if (formattedValidAddresses.includes(formattedWalletAddress)) {
+                        window.location.href = 'success.html';
+                    } else {
+                        window.location.href = 'error.html';
+                    }
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="wallet-container">
+        <div class="wallet-info">
+            <img src="logo.png" alt="MetaMask Logo" class="wallet-logo" />
+            <p id="walletAddress">Loading...</p>
+        </div>
+    </div>
+
+    <div class="dashboard-box">
+        <div class="dashboard-penal-box">
+            <button id="adminPanelButton" class="dashboard-button">
+                <img src="admin-penal (2).png" alt="Admin Panel Logo" class="button-logo" />
+                <span class="button-text">Administrator Panel</span>
+            </button>
+            <button id="managementLabsButton" class="dashboard-button">
+                <img src="labs.png" alt="Management Labs Logo" class="button-logo" />
+                <span class="button-text">Management Labs</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Function to shorten wallet address
+            function shortenAddress(address) {
+                if (address.length > 10) {
+                    return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
+                }
+                return address;
+            }
+
+            // Display the shortened wallet address
+            const walletAddress = localStorage.getItem('walletAddress');
+            const walletAddressElement = document.getElementById('walletAddress');
+            if (walletAddress) {
+                walletAddressElement.textContent = shortenAddress(walletAddress);
+            } else {
+                walletAddressElement.textContent = 'No wallet connected';
+            }
+
+            // Handle Admin Panel Button Click
+            const adminPanelButton = document.getElementById('adminPanelButton');
+            if (adminPanelButton) {
+                adminPanelButton.addEventListener('click', () => {
+                    // Redirect to the maintenance page
+                    window.location.href = 'maintenance.html';
+                });
+            } else {
+                console.error('Admin Panel button not found.');
+            }
+
+            // Handle Management Labs Button Click
+            const managementLabsButton = document.getElementById('managementLabsButton');
+            if (managementLabsButton) {
+                managementLabsButton.addEventListener('click', () => {
+                    // Redirect to the management labs page (specify your page here)
+                    window.location.href = 'management-labs.html';
+                });
+            } else {
+                console.error('Management Labs button not found.');
+            }
+        });
+    </script>
+</body>
+</html>
